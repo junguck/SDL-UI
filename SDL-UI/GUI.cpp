@@ -6,7 +6,9 @@ namespace GUI
     {
         if(IsFilled && IsBordered)
         {
-            
+            SDL_SetRenderDrawColor(Render,Element_color.r,Element_color.g,Element_color.b,Element_color.a);
+
+            for(int )
         }
     }
 };
