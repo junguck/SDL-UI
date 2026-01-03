@@ -1,5 +1,5 @@
 
-lien meet : [https://meet.google.com/ujj-ukpx-dhk](https://meet.google.com/dwv-tyoj-tfs)
+lien meet : [[https://meet.google.com/ujj-ukpx-dhk](https://meet.google.com/dwv-tyoj-tfs)](https://meet.google.com/mnt-wcgd-wne)
 ---
 
 # SDL3-UI-Framework (C++20)
