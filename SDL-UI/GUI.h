@@ -34,24 +34,39 @@ namespace GUI
             void virtual nothing() = 0;
     };
 
-    class widget
-    {
-        public:
-        widget(){}
+//push de jun (remodification de la classe)
 
-        SDL_Color Color;
+class Widget {
+public:
+    //zone du wigdet
+    SDL_FRect rect;
+    //couleur 
+    SDL_Color color;
+    //gestionaire des event
+    bool isOver = false;
+    bool isPressed = false;
 
-        bool IsOver = false;
-        bool Clicked = false;
+    Widget(float x, float y, float w, float h, SDL_Color c) 
+        : rect({x, y, w, h}), color(c) {}
 
-        void Draw_widget(SDL_Renderer * render);
-        bool Event(SDL_Event * event);
-    };
-
-    class window
-    {
-
-    };
+    virtual ~Widget() = default;
+    
+    // Méthodes virtuelles pures pour forcer l'implémentation
+    virtual void draw(SDL_Renderer* renderer) = 0;
+    virtual void handleEvent(SDL_Event* event) {
+        if (event->type == SDL_EVENT_MOUSE_MOTION) {
+            float mx = event->motion.x;
+            float my = event->motion.y;
+            isOver = (mx >= rect.x && mx <= rect.x + rect.w && my >= rect.y && my <= rect.y + rect.h);
+        }
+        if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN && isOver) {
+            isPressed = true;
+        }
+        if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+            isPressed = false;
+        }
+    }
+};
 
     
 };
