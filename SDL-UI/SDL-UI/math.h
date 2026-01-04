@@ -2,8 +2,6 @@
 #define __MATH_H__
 
 
-namespace GUI
-{
     namespace math
     {
         class vector2D
@@ -17,6 +15,6 @@ namespace GUI
                 vector2D(const vector2D& other) : x(other.x), y(other.y) {}
         };
     };
-};
+
 
 #endif
