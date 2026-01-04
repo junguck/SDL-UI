@@ -1,11 +1,10 @@
 //Cette classe utilise SDL_StartTextInput() pour capturer les caractères et gère la touche "Backspace" pour effacer.
 #pragma once
-#include "Widget.hpp"
-#include <SDL3/SDL.h>
-#include <string>
+#include "GUI.h"
 
-class TextBox : public Widget {
-public:
+
+    class TextBox : public Widget {
+    public:
     std::string text;
     TTF_Font* font;
     bool hasFocus = false;
@@ -70,7 +69,9 @@ public:
                 float textW = 0;
                 if (!text.empty()) {
                     int w;
-                    TTF_SizeText(font, text.c_str(), &w, nullptr);
+                    int h;
+                    // TTF_SizeText(font, text.c_str(), &w, &h);
+                    TTF_GetStringSize(font, text.c_str(), 1, &w, &h);
                     textW = (float)w;
                 }
                 SDL_FRect cursor = {rect.x + 5 + textW, rect.y + 5, 2, rect.h - 10};
@@ -80,3 +81,4 @@ public:
         }
     }
 };
+// namespace  GU

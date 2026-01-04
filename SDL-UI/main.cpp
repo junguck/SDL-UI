@@ -2,12 +2,14 @@
 //ce main gere deja la fenetre et aussi la gestion des UI mais on prevoit
 //faire un classe pour la gestion des UI
 //on va afficher un cercle ou un carre avec un bouttons
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <vector>
-#include "Colors.hpp"
-#include "Button.hpp"
+
+#include "GUI.h"
+#include "math.h"
+#include "Label.h"
+#include "TextBox.h"
+#include "Color.h"
+#include "Button.h"
+
 
 enum Shape { RECTANGLE, CIRCLE };
 Shape currentShape = RECTANGLE;
@@ -53,7 +55,7 @@ int main(int argc, char* argv[]) {
         SDL_RenderFillRect(renderer, &panel);
 
         // Dessiner la Scène (Zone de droite)
-        SDL_SetRenderDrawColor(renderer, Colors.SkyBlue.r, Colors.SkyBlue.g, Colors.SkyBlue.b, 255);
+        SDL_SetRenderDrawColor(renderer, Colors::SkyBlue.r, Colors::SkyBlue.g, Colors::SkyBlue.b, 255);
         if (currentShape == RECTANGLE) {
             SDL_FRect r = {400, 200, 200, 200};
             SDL_RenderFillRect(renderer, &r);
