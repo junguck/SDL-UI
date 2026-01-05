@@ -9,19 +9,26 @@
         public:
         Label* label;
         std::function<void()> onClick;
-
-        Button(float x, float y, float w, float h, std::string t, TTF_Font* f, std::function<void()> callback)
-            : Widget(x, y, w, h, {100, 100, 100, 255}), onClick(callback) {
-            label = new Label(x + 10, y + 5, t, f, {255, 255, 255, 255});
+        int xc,yc;
+        Button(float x, float y, float w, float h, const float& mxw,const float& mxh,const float& miw,const float& mih,const bool& fix,std::string t, TTF_Font* f, std::function<void()> callback)
+            : Widget(x, y, w, h,mxw,mxh,miw,mih,fix,{100, 100, 100, 255}), onClick(callback) {
+                xc = x;
+                yc = y;
+            label = new Label(x + 10, y + 5, rect.x+rect.x, rect.y+rect.h, rect.x,rect.h,t, f, {255, 255, 255, 255});
         }
 
         void draw(SDL_Renderer* renderer) override {
+            xc = rect.x;
+            yc = rect.y;
+            label->rect.x = xc;
+            label->rect.y = yc;
+            
             // Changement de couleur au survol
             SDL_SetRenderDrawColor(renderer, isOver ? 150 : 80, 80, 80, 255);
-            SDL_RenderFillRect(renderer, &rect);
+            RenderFillRect(renderer, rect,max_width,max_height,min_width,min_height);
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-            SDL_RenderRect(renderer, &rect);
-            label->draw(renderer);
+            RenderRect(renderer, rect,max_width,max_height,min_width,min_height);
+            if(isVisible) label->draw(renderer);
         }
 
         void handleEvent(SDL_Event* event) override {

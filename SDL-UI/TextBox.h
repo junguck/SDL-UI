@@ -10,20 +10,20 @@
     bool hasFocus = false;
     int cursorTimer = 0; // Pour le clignotement du curseur
     //constructeur de la classe
-    TextBox(float x, float y, float w, float h, TTF_Font* f)
-        : Widget(x, y, w, h, {255, 255, 255, 255}), font(f), text("") {}
+    TextBox(float x, float y, float w, float h, const float& mxw,const float& mxh,const float& miw,const float& mih,const bool& fix,TTF_Font* f)
+        : Widget(x, y, w, h, mxw, mxh,miw,mih,fix,{255, 255, 255, 255}), font(f), text("") {}
 
     void handleEvent(SDL_Event* event) override {
         Widget::handleEvent(event);
 
         // Gestion du Focus
-        if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN && isVisible) {
             hasFocus = isOver;
             if (hasFocus) SDL_StartTextInput(SDL_GetKeyboardFocus());
             else SDL_StopTextInput(SDL_GetKeyboardFocus());
         }
 
-        if (hasFocus) {
+        if (hasFocus && isVisible) {
             // Saisie de texte
             if (event->type == SDL_EVENT_TEXT_INPUT) {
                 text += event->text.text;
@@ -40,11 +40,11 @@
     void draw(SDL_Renderer* renderer) override {
         // Fond de la zone
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderFillRect(renderer, &rect);
+        RenderFillRect(renderer, rect, max_width,max_height,min_width,min_height);
         
         // Bordure (plus épaisse si focus)
         SDL_SetRenderDrawColor(renderer, hasFocus ? 0 : 150, 120, 255, 255);
-        SDL_RenderRect(renderer, &rect);
+        RenderRect(renderer, rect,max_width,max_height,min_width,min_height);
 
         // Rendu du texte
         if (!text.empty()) {

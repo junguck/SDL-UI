@@ -3,12 +3,7 @@
 //faire un classe pour la gestion des UI
 //on va afficher un cercle ou un carre avec un bouttons
 
-#include "GUI.h"
-#include "math.h"
-#include "Label.h"
-#include "TextBox.h"
-#include "Color.h"
-#include "Button.h"
+#include "window.h"
 
 
 enum Shape { RECTANGLE, CIRCLE };
@@ -25,16 +20,28 @@ int main(int argc, char* argv[]) {
     std::vector<Widget*> uiElements;
 
     // --- Tableau de bord (Panel gauche) ---
-    auto btnRect = new Button(20, 50, 150, 40, "Rectangle", font, []() {
+    auto btnRect = new Button(20, 50, 150, 40, 800,600,0,0,true,"Rectangle", font, []() {
         currentShape = RECTANGLE;
     });
-    
-    auto btnCircle = new Button(20, 110, 150, 40, "Cercle", font, []() {
+        
+    auto btnCircle = new Button(20, 110, 150, 40, 800 , 600 ,0,0,true,"Cercle", font, []() {
         currentShape = CIRCLE;
     });
 
+    SubWindow* subwindow = new SubWindow(200,200,400,400,800,600,0,0,false,true,true,true,Colors::Maroon);
+    subwindow->add_widget(new Button(20, 50, 100, 40, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,false,"Mince", font, []() {
+        currentShape = RECTANGLE;
+    }));
+
+    subwindow->add_widget(new Button(100, 100, 100, 40, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,false,"Mince", font, []() {
+        currentShape = RECTANGLE;
+    }));
+
+    subwindow->add_widget(new TextBox(300,300, 90, 90, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,font));
+
     uiElements.push_back(btnRect);
     uiElements.push_back(btnCircle);
+    uiElements.push_back(subwindow);
 
     bool running = true;
     SDL_Event event;
