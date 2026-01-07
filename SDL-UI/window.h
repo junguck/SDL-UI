@@ -270,10 +270,10 @@ class SubWindow : public Widget
                     isOvercross = ((mx >= cross.x- (cross.w/2) && mx <= cross.x+(cross.w/2)) && (my >= cross.y - (cross.h/2) && my <= cross.y+(cross.h/2)));
                     isOver = (mx >= rect.x - (rect.w/2) && mx <= rect.x + (rect.w/2) && my >= rect.y - (rect.h/2) && my <= rect.y + (rect.h/2));
 
-                    CursorOnDown = isOver && ((my >= (rect.y + (rect.h/2)-2)) && my <= (rect.y + (rect.h/2)));
-                    CursorOnLeft = isOver && ((mx >= (rect.x-(rect.w/2))) && (mx <= (rect.x-(rect.w/2)+2)));
-                    CursorOnRight = isOver && (mx >= (rect.x + (rect.w/2)-2)) && mx <= (rect.x + (rect.w/2));
-                    CursorOnUp = isOver && ((my >= (rect.y-(rect.h/2))) && (my <= (rect.y-(rect.h/2)+5)) && (mx < cross.x-(cross.w/2)));
+                    CursorOnDown = isOver && ((my >= (rect.y + (rect.h/2)-2)) && my <= (rect.y + (rect.h/2)+2));
+                    CursorOnLeft = isOver && ((mx >= (rect.x-(rect.w/2)-2)) && (mx <= (rect.x-(rect.w/2)+2)));
+                    CursorOnRight = isOver && (mx >= (rect.x + (rect.w/2)-2)) && mx <= (rect.x + (rect.w/2)+2);
+                    CursorOnUp = isOver && !isOvercross && ((my >= (rect.y-(rect.h/2)-2)) && (my <= (rect.y-(rect.h/2)+5)));
     
                     if(isHeaderVisible) isOverheader = !CursorOnUp && ((mx >= header.x-(header.w/2) && mx <= cross.x - (cross.w/2)) && (my >= header.y - (header.h/2)+5 && my <= header.y + (header.h/2))) ? true : false;
                 }
