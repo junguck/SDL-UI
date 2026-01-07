@@ -25,7 +25,6 @@
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             RenderRect(renderer, rect,max_width,max_height,min_width,min_height);
             if(isVisible) label->draw(renderer);
-            else std::cout << "woko" << std::endl;
         }
 
         void handleEvent(SDL_Event* event) override {

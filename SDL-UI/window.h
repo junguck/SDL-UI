@@ -41,7 +41,7 @@ class SubWindow : public Widget
             newVal->rect.x += (rect.x - (rect.x/2));
             newVal->rect.y += (rect.y - (rect.h/2));
             newVal->InitX = newVal->rect.x;
-            newVal->InitX = newVal->rect.y;
+            newVal->InitY = newVal->rect.y;
             if(isHeaderVisible) newVal->min_height = (rect.y - (rect.h/2)) +15;
             else newVal->min_height = (rect.y - (rect.h/2));
             newVal->min_width = rect.x - (rect.w/2);
@@ -67,21 +67,24 @@ class SubWindow : public Widget
             if(CursorOnDown) 
             {
                 rect.h += add;
-                Update_Position(0,add/2);
+                Update_Windows_Position(0,add/2);
+                // Update_Position(0,add/2);
                 header.y = rect.y-(rect.h/2)+(15/2);
                 cross.y = rect.y-(rect.h/2)+(15/2);
             }
             else if(CursorOnUp)
             {
                 rect.h -= add;
-                Update_Position(0,add/2);
+                Update_Windows_Position(0,add/2);
+                // Update_Position(0,add/2);
                 header.y = rect.y-(rect.h/2)+(15/2);
                 cross.y = rect.y-(rect.h/2)+(15/2);
             }
             else if(CursorOnRight)
             {
                 rect.w += add;
-                Update_Position(add/2,0);
+                Update_Windows_Position(add/2,0);
+                // Update_Position(add/2,0);
                 header.x = rect.x;
                 cross.x = rect.x-(rect.w/2) + (rect.w-7);
                 header.w += add;
@@ -89,11 +92,43 @@ class SubWindow : public Widget
             else
             {
                 rect.w -= add;
-                Update_Position(add/2,0);
+                Update_Windows_Position(add/2,0);
+                // Update_Position(add/2,0);
                 header.x = rect.x;
                 cross.x = rect.x-(rect.w/2) + (rect.w-7);
                 header.w -= add;
             }
+        }
+        void Update_Windows_Position(const float& addx, const float& addy)
+        {
+            float XY_dif [Widget_List.size()][2];
+            for(int i = 0; i < Widget_List.size(); i++)
+            {
+                XY_dif[i][0] =  Widget_List[i]->rect.x - (rect.x-(rect.w/2));
+                XY_dif[i][1] =  Widget_List[i]->rect.y - (rect.y-(rect.h/2));
+                // XY_dif[i][0] = (rect.x-(rect.w/2)) - Widget_List[i]->rect.x;
+                // XY_dif[i][1] = (rect.y-(rect.h/2)) - Widget_List[i]->rect.y;
+            }
+
+            rect.x += addx;
+            rect.y += addy;
+            header.x += addx;
+            header.y += addy;
+            cross.x += addx;
+            cross.y += addy;
+            this->check_visibility();
+
+            for(int i = 0; i < Widget_List.size(); i++)
+            {
+                Widget_List[i]->rect.x = (rect.x-(rect.w/2)) + XY_dif[i][0];
+                Widget_List[i]->rect.y = (rect.y-(rect.h/2)) + XY_dif[i][1];
+                Widget_List[i]->max_width = (rect.x + (rect.w/2));
+                Widget_List[i]->max_height = (rect.y+ (rect.h/2));
+                Widget_List[i]->min_width = (rect.x - (rect.w/2));
+                if(isHeaderVisible) Widget_List[i]->min_height = (rect.y - (rect.h/2)) +15;
+                else Widget_List[i]->min_height = (rect.y - (rect.h/2));
+            }
+
         }
         void Update_Position(const float& addx, const float& addy)
         {
@@ -104,6 +139,7 @@ class SubWindow : public Widget
             cross.x += addx;
             cross.y += addy;
             this->check_visibility();
+
             for (auto widgets : Widget_List) 
             {
                 widgets->rect.x += addx;
