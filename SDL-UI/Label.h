@@ -11,7 +11,7 @@
 
         //position + texte + police + couleur : heriter de la position et de la couleur de widget
         Label(float x, float y,const float& mxw,const float& mxh,const float& miw,const float& mih,std::string t, TTF_Font* f, SDL_Color c)
-            : Widget(x, y,mxw,mxh,miw,mih, fixed,0, 0, c), text(t), font(f) { }
+            : Widget(x, y,mxw,mxh,miw,mih, fixed,false,0, 0, c), text(t), font(f) { }
 
             //definition de draw
         void draw(SDL_Renderer* renderer) override {
@@ -28,3 +28,4 @@
             SDL_DestroyTexture(tex);
         }
     };
+    

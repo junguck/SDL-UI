@@ -9,19 +9,15 @@
         public:
         Label* label;
         std::function<void()> onClick;
-        int xc,yc;
+        
         Button(float x, float y, float w, float h, const float& mxw,const float& mxh,const float& miw,const float& mih,const bool& fix,std::string t, TTF_Font* f, std::function<void()> callback)
-            : Widget(x, y, w, h,mxw,mxh,miw,mih,fix,{100, 100, 100, 255}), onClick(callback) {
-                xc = x;
-                yc = y;
-            label = new Label(x + 10, y + 5, rect.x+rect.x, rect.y+rect.h, rect.x,rect.h,t, f, {255, 255, 255, 255});
+            : Widget(x, y, w, h,mxw,mxh,miw,mih,fix,false,{100, 100, 100, 255}), onClick(callback) {
+            label = new Label((x-(w/2)) + 10, (y - (h/2)) + 5, rect.x+(rect.w/2), rect.y+(rect.h/2), rect.x-(rect.w/2),rect.y-(rect.h/2),t, f, {255, 255, 255, 255});
         }
 
         void draw(SDL_Renderer* renderer) override {
-            xc = rect.x;
-            yc = rect.y;
-            label->rect.x = xc;
-            label->rect.y = yc;
+            label->rect.x = (rect.x - (rect.w/2));
+            label->rect.y = (rect.y - (rect.h/2));
             
             // Changement de couleur au survol
             SDL_SetRenderDrawColor(renderer, isOver ? 150 : 80, 80, 80, 255);

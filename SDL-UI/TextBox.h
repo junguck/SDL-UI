@@ -11,7 +11,7 @@
     int cursorTimer = 0; // Pour le clignotement du curseur
     //constructeur de la classe
     TextBox(float x, float y, float w, float h, const float& mxw,const float& mxh,const float& miw,const float& mih,const bool& fix,TTF_Font* f)
-        : Widget(x, y, w, h, mxw, mxh,miw,mih,fix,{255, 255, 255, 255}), font(f), text("") {}
+        : Widget(x, y, w, h, mxw, mxh,miw,mih,fix,false,{255, 255, 255, 255}), font(f), text("") {}
 
     void handleEvent(SDL_Event* event) override {
         Widget::handleEvent(event);
@@ -51,7 +51,7 @@
             SDL_Surface* surf = TTF_RenderText_Blended(font, text.c_str(), 0, {0, 0, 0, 255});
             if (surf) {
                 SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
-                SDL_FRect textRect = {rect.x + 5, rect.y + (rect.h - surf->h) / 2, (float)surf->w, (float)surf->h};
+                SDL_FRect textRect = {(rect.x-(rect.w/2)) + 5, (rect.y - (rect.h/2)) + (rect.h - surf->h) / 2, (float)surf->w, (float)surf->h};
                 
                 // Empêcher le texte de dépasser de la zone
                 if (textRect.w > rect.w - 10) textRect.w = rect.w - 10;
@@ -74,9 +74,9 @@
                     TTF_GetStringSize(font, text.c_str(), 1, &w, &h);
                     textW = (float)w;
                 }
-                SDL_FRect cursor = {rect.x + 5 + textW, rect.y + 5, 2, rect.h - 10};
+                SDL_FRect cursor = {(rect.x - (rect.w/2)) + 5 + textW, rect.y, 2, rect.h - 10};
                 SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                SDL_RenderFillRect(renderer, &cursor);
+                RenderFillRect(renderer, cursor,rect.x+(rect.w/2),rect.y+(rect.h/2),rect.x-(rect.w/2),rect.y-(rect.h/2));
             }
         }
     }

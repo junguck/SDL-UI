@@ -20,15 +20,15 @@ int main(int argc, char* argv[]) {
     std::vector<Widget*> uiElements;
 
     // --- Tableau de bord (Panel gauche) ---
-    auto btnRect = new Button(20, 50, 150, 40, 800,600,0,0,true,"Rectangle", font, []() {
+    auto btnRect = new Button(120, 50, 150, 40, 800,600,0,0,true,"Rectangle", font, []() {
         currentShape = RECTANGLE;
     });
         
-    auto btnCircle = new Button(20, 110, 150, 40, 800 , 600 ,0,0,true,"Cercle", font, []() {
+    auto btnCircle = new Button(120, 110, 150, 40, 800 , 600 ,0,0,false,"Cercle", font, []() {
         currentShape = CIRCLE;
     });
 
-    SubWindow* subwindow = new SubWindow(200,200,400,400,800,600,0,0,false,true,true,true,Colors::Maroon);
+    SubWindow* subwindow = new SubWindow(200,200,400,400,800,600,0,0,false,true,true,true,true,Colors::Maroon);
     subwindow->add_widget(new Button(20, 50, 100, 40, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,false,"Mince", font, []() {
         currentShape = RECTANGLE;
     }));
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
         currentShape = RECTANGLE;
     }));
 
-    subwindow->add_widget(new TextBox(300,300, 90, 90, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,font));
+    subwindow->add_widget(new TextBox(200,200, 100, 100, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,font));
 
     uiElements.push_back(btnRect);
     uiElements.push_back(btnCircle);
@@ -84,3 +84,4 @@ int main(int argc, char* argv[]) {
     SDL_Quit();
     return 0;
 }
+
