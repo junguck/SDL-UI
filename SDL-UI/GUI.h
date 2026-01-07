@@ -65,10 +65,13 @@ public:
     virtual ~Widget() = default;
 
     void check_visibility()
-    { isVisible = rect.x + (rect.w/2) < max_width || rect.y + (rect.h/2) < max_height || rect.x + (rect.w/2) >= min_width || rect.y + (rect.h/2) >= min_height  ||  rect.x-(rect.w/2) < max_width || rect.y - (rect.h/2) < max_height || rect.x - (rect.w/2) >= min_width || rect.y + (rect.h/2)>= min_height; }
+    { 
+      isVisible = (((rect.x+(rect.w/2)) >= min_width && (rect.x+(rect.w/2)) < max_width ) || ((rect.x-(rect.w/2)) >= min_width &&  (rect.x-(rect.w/2)) < max_width) 
+      && ((rect.y+(rect.h/2)) >= min_height && (rect.y+(rect.h/2)) < max_height) || ((rect.y-(rect.h/2)) >= min_height && (rect.y-(rect.h/2)) < max_height)); 
+    }
     
     // Méthodes virtuelles pures pour forcer l'implémentation
-    // virtual void Resize(const float& size);
+    // virtual void Resize(const float& size);```
     virtual void draw(SDL_Renderer* renderer) = 0;
     virtual void handleEvent(SDL_Event* event) {
         if (event->type == SDL_EVENT_MOUSE_MOTION) {
@@ -84,6 +87,5 @@ public:
         }
     }
 };
-
 
 #endif

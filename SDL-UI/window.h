@@ -67,21 +67,21 @@ class SubWindow : public Widget
             if(CursorOnDown) 
             {
                 rect.h += add;
-                Update_Position(0,add);
+                Update_Position(0,add/2);
                 header.y = rect.y-(rect.h/2)+(15/2);
                 cross.y = rect.y-(rect.h/2)+(15/2);
             }
             else if(CursorOnUp)
             {
                 rect.h -= add;
-                Update_Position(0,add);
+                Update_Position(0,add/2);
                 header.y = rect.y-(rect.h/2)+(15/2);
                 cross.y = rect.y-(rect.h/2)+(15/2);
             }
             else if(CursorOnRight)
             {
                 rect.w += add;
-                Update_Position(add,0);
+                Update_Position(add/2,0);
                 header.x = rect.x;
                 cross.x = rect.x-(rect.w/2) + (rect.w-7);
                 header.w += add;
@@ -89,7 +89,7 @@ class SubWindow : public Widget
             else
             {
                 rect.w -= add;
-                Update_Position(add,0);
+                Update_Position(add/2,0);
                 header.x = rect.x;
                 cross.x = rect.x-(rect.w/2) + (rect.w-7);
                 header.w -= add;
