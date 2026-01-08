@@ -10,13 +10,7 @@ public:
     Uint32 wrapWidth; // largeur max avant retour à la ligne
 
     // position + dimensions + texte + police + couleur
-    Label(float x, float y,
-          const float& mxw, const float& mxh,
-          const float& miw, const float& mih,
-          std::string t,
-          TTF_Font* f,
-          SDL_Color c,
-          Uint32 wrap = 300) // largeur par défaut
+    Label(float x, float y, const float& mxw, const float& mxh,const float& miw, const float& mih,std::string t,TTF_Font* f,SDL_Color c,Uint32 wrap = 300) // largeur par défaut
         : Widget(x, y, mxw, mxh, miw, mih, fixed, false, 0, 0, c),
           text(t),
           font(f),
