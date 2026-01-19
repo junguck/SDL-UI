@@ -1,51 +1,31 @@
+// texte simple (label)
 #pragma once
 #include "GUI.h"
 
-// Texte simple (label avec retour à la ligne automatique)
-class Label : public Widget
-{
-public:
-    std::string text;
-    TTF_Font* font;
-    Uint32 wrapWidth; // largeur max avant retour à la ligne
 
-    // position + dimensions + texte + police + couleur
-    Label(float x, float y, const float& mxw, const float& mxh,const float& miw, const float& mih,std::string t,TTF_Font* f,SDL_Color c,Uint32 wrap = 300) // largeur par défaut
-        : Widget(x, y, mxw, mxh, miw, mih, fixed, false, 0, 0, c),
-          text(t),
-          font(f),
-          wrapWidth(wrap)
+    class Label : public Widget 
     {
-    }
+        public:
+        std::string text;
+        TTF_Font* font;
 
-    void draw(SDL_Renderer* renderer) override
-    {
-        if (text.empty() || !font) return;
+        //position + texte + police + couleur : heriter de la position et de la couleur de widget
+        Label(float x, float y,const float& mxw,const float& mxh,const float& miw,const float& mih,std::string t, TTF_Font* f, SDL_Color c)
+            : Widget(x, y,mxw,mxh,miw,mih, fixed,false,0, 0, c), text(t), font(f) { }
 
-        // Rendu du texte avec retour à la ligne automatique
-        SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(
-            font,
-            text.c_str(),
-            color,
-            wrapWidth
-        );
+            //definition de draw
+        void draw(SDL_Renderer* renderer) override {
+            if (text.empty()) return;
+            //utilisqtion de mode de sld ttf
+            SDL_Surface* surf = TTF_RenderText_Blended(font, text.c_str(), 0, color);
+            SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
+            
+            rect.w = (float)surf->w;
+            rect.h = (float)surf->h;
 
-        if (!surf) return;
-
-        SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
-        if (!tex)
-        {
+            SDL_RenderTexture(renderer, tex, nullptr, &rect);
             SDL_DestroySurface(surf);
-            return;
+            SDL_DestroyTexture(tex);
         }
-
-        // Ajustement automatique de la taille du widget
-        rect.w = static_cast<float>(surf->w);
-        rect.h = static_cast<float>(surf->h);
-
-        SDL_RenderTexture(renderer, tex, nullptr, &rect);
-
-        SDL_DestroySurface(surf);
-        SDL_DestroyTexture(tex);
-    }
-};
+    };
+    
