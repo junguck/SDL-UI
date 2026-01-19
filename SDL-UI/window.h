@@ -3,6 +3,8 @@
 #include "Label.h"
 #include "Button.h"
 #include "Color.h"
+#include "Checkbox.h"
+#include "Dropdown.h"
 
 class SubWindow : public Widget
 {
@@ -127,6 +129,7 @@ class SubWindow : public Widget
                 Widget_List[i]->min_width = (rect.x - (rect.w/2));
                 if(isHeaderVisible) Widget_List[i]->min_height = (rect.y - (rect.h/2)) +15;
                 else Widget_List[i]->min_height = (rect.y - (rect.h/2));
+                Widget_List[i]->check_visibility();
             }
 
         }

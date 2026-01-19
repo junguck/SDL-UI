@@ -37,7 +37,9 @@ int main(int argc, char* argv[]) {
         currentShape = RECTANGLE;
     }));
 
-    subwindow->add_widget(new TextBox(200,200, 100, 100, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,font));
+    // subwindow->add_widget(new TextBox(200,200, 100, 100, subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,font));
+    // subwindow->add_widget(new Checkbox(250,250,10,subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true));
+    subwindow->add_widget(new Dropdown(250,250,10,10,subwindow->max_width,subwindow->max_height,subwindow->rect.x,subwindow->rect.y,true,{"Jun","Brian"},font));
 
     uiElements.push_back(btnRect);
     uiElements.push_back(btnCircle);

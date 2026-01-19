@@ -27,5 +27,10 @@
             SDL_DestroySurface(surf);
             SDL_DestroyTexture(tex);
         }
+
+        void setText(const std::string& newText)
+        {
+            text = newText;
+        }
     };
     
