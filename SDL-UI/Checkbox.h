@@ -37,8 +37,6 @@
  *  - Le callback est appelé après chaque changement
  *  - Le rendu est géré via SDL_Renderer
  *
- * @author
- * Yin
  */
 
 #pragma once
